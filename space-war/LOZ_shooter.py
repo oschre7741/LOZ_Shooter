@@ -36,13 +36,13 @@ FONT_XL = pygame.font.Font(None, 96)
 # Images
 ship_img = pygame.image.load('images/link.png')
 laser_img = pygame.image.load('images/arrow.png')
+ufo_img = pygame.image.load('images/ufo_img.png')
 mob_img = pygame.image.load('images/mob.png')
 mob2_img = pygame.image.load('images/mob2.png')
 mob3_img = pygame.image.load('images/mob3.png')
 bomb_img = pygame.image.load('images/bomb.png')
 
 background = pygame.image.load('images/background.png')
-background2 = pygame.image.load('images/background2.png')
 startscreen = pygame.image.load('images/startscreen.png')
 game_over = pygame.image.load('images/game_over.png')
 win_img = pygame.image.load('images/win.png')
@@ -71,7 +71,43 @@ LOSE = 2
 WIN = 3
 
 def level_setup():
-    global x, y, image, lasers, player, mobs, bombs, fleet
+    global x, y, image, lasers, player, mobs, bombs, fleet, fleet2, ufo, enemy
+
+    class UFO(pygame.sprite.Sprite):
+        def __init__(self, x, y, image):
+            super().__init__()
+
+            self.image = image
+            self.mask = pygame.mask.from_surface(self.image)
+            self.rect = self.image.get_rect()
+            self.rect.x = x
+            self.rect.y = y
+
+        def update(self, lasers, player):         
+            hit_list = pygame.sprite.spritecollide(self, lasers, True, pygame.sprite.collide_mask)
+
+            for hit in hit_list:
+                enemy_hit.play()
+                
+            if len(hit_list) > 0:
+                enemy_die.play()
+                player.score += 1000
+                self.kill()
+
+    class Fleet2:
+
+        def __init__(self, mobs):
+            self.mobs = mobs
+            self.moving_right = True
+            self.speed = 7
+
+        def move(self):
+            for e in enemy:
+                e.rect.x += self.speed + 2
+                e.rect.y += self.speed 
+
+        def update(self):
+            self.move()
 
     class Mob(pygame.sprite.Sprite):
         def __init__(self, x, y, image):
@@ -164,47 +200,62 @@ def level_setup():
 
 
     # Make game objects
-    mob1 = Mob(200, 64, mob2_img)
-    mob2 = Mob(400, 64, mob2_img)
-    mob3 = Mob(600, 64, mob2_img)
-    mob4 = Mob(800, 64, mob2_img)
-    mob5 = Mob(300, 14, mob2_img)
-    mob6 = Mob(500, 14, mob2_img)
-    mob7 = Mob(700, 14, mob2_img)
-    '''
-    mob8 = Mob(200, 64, mob2_img)
-    mob9 = Mob(400, 64, mob2_img)
-    mob10 = Mob(600, 64, mob2_img)
-    mob11 = Mob(800, 64, mob2_img)
-    mob12 = Mob(300, 14, mob2_img)
-    mob13 = Mob(500, 14, mob2_img)
-    mob14 = Mob(700, 14, mob2_img)
+    mob1 = Mob(200, 64, mob_img)
+    mob2 = Mob(400, 64, mob_img)
+    mob3 = Mob(600, 64, mob_img)
+    mob4 = Mob(800, 64, mob_img)
+    mob5 = Mob(300, 14, mob_img)
+    mob6 = Mob(500, 14, mob_img)
+    mob7 = Mob(700, 14, mob_img)
+    
+    mob8 = Mob(100, 64, mob2_img)
+    mob9 = Mob(300, 64, mob2_img)
+    mob10 = Mob(500, 64, mob2_img)
+    mob11 = Mob(700, 64, mob2_img)
+    mob12 = Mob(900, 64, mob2_img)
+    mob13 = Mob(100, 14, mob2_img)
+    mob14 = Mob(300, 14, mob2_img)
+    mob15 = Mob(500, 14, mob2_img)
+    mob16 = Mob(700, 14, mob2_img)
 
-    mob15 = Mob(200, 64, mob3_img)
-    mob16 = Mob(400, 64, mob3_img)
-    mob17 = Mob(600, 64, mob3_img)
-    mob18 = Mob(800, 64, mob3_img)
-    mob19 = Mob(300, 14, mob3_img)
-    mob20 = Mob(500, 14, mob3_img)
-    mob21 = Mob(700, 14, mob3_img)
-    '''
+    mob17 = Mob(200, 64, mob3_img)
+    mob18 = Mob(400, 64, mob3_img)
+    mob19 = Mob(600, 64, mob3_img)
+    mob20 = Mob(800, 64, mob3_img)
+    mob21 = Mob(200, -36, mob3_img)
+    mob22 = Mob(400, -36, mob3_img)
+    mob23 = Mob(600, -36, mob3_img)
+    mob24 = Mob(800, -36, mob3_img)
+    mob25 = Mob(300, 14, mob3_img)
+    mob26 = Mob(500, 14, mob3_img)
+    mob27 = Mob(700, 14, mob3_img)
+
+    ufo = UFO(-500, -500, ufo_img)
+    
     # Make sprite groups
+    enemy = pygame.sprite.GroupSingle()
+    enemy.add(ufo)
+    
     mobs = pygame.sprite.Group()
     mobs.add(mob1, mob2, mob3, mob4, mob5, mob6, mob7)
-    '''
+    
     if player.level == 2:
-        mobs.add(mob8, mob9, mob10, mob11, mob12, mob13, mob14)
+        mobs.add(mob8, mob9, mob10, mob11, mob12, mob13, mob14, mob15, mob16)
     if player.level == 3:
-        mobs.add(mob15, mob16, mob17, mob18, mob19, mob20, mob21)
-    '''    
+        mobs.add(mob17, mob18, mob19, mob20, mob21, mob22, mob23, mob24, mob25, mob26, mob27)
+       
 
     bombs = pygame.sprite.Group()
 
 
     fleet = Fleet(mobs)
+
+    fleet2 = Fleet2(enemy)
+
+    
     
 def game_setup():
-    global x, y, image, lasers, bombs, mobs, player, ship, fleet, stage
+    global x, y, image, lasers, bombs, mobs, player, ship, fleet, fleet2, ufo, enemy, stage
     
     # Game classes
     class Ship(pygame.sprite.Sprite):
@@ -268,7 +319,43 @@ def game_setup():
 
             if self.rect.bottom < 0:
                 self.kill()
+                
+    class UFO(pygame.sprite.Sprite):
+        def __init__(self, x, y, image):
+            super().__init__()
 
+            self.image = image
+            self.mask = pygame.mask.from_surface(self.image)
+            self.rect = self.image.get_rect()
+            self.rect.x = x
+            self.rect.y = y
+
+        def update(self, lasers, player):
+            hit_list = pygame.sprite.spritecollide(self, lasers, True, pygame.sprite.collide_mask)
+
+            for hit in hit_list:
+                enemy_hit.play()
+                
+            if len(hit_list) > 0:
+                enemy_die.play()
+                player.score += 1000
+                self.kill()
+
+    class Fleet2:
+
+        def __init__(self, mobs):
+            self.mobs = mobs
+            self.moving_right = True
+            self.speed = 7
+
+        def move(self):
+            for e in enemy:
+                e.rect.x += self.speed + 2
+                e.rect.y += self.speed 
+
+        def update(self):
+            self.move()
+                
     class Mob(pygame.sprite.Sprite):
         def __init__(self, x, y, image):
             super().__init__()
@@ -362,51 +449,63 @@ def game_setup():
     ship = Ship(450, 465, ship_img)
 
     # Make game objects
-    mob1 = Mob(200, 64, mob2_img)
-    mob2 = Mob(400, 64, mob2_img)
-    mob3 = Mob(600, 64, mob2_img)
-    mob4 = Mob(800, 64, mob2_img)
-    mob5 = Mob(300, 14, mob2_img)
-    mob6 = Mob(500, 14, mob2_img)
-    mob7 = Mob(700, 14, mob2_img)
-    '''
-    mob8 = Mob(200, 64, mob2_img)
-    mob9 = Mob(400, 64, mob2_img)
-    mob10 = Mob(600, 64, mob2_img)
-    mob11 = Mob(800, 64, mob2_img)
-    mob12 = Mob(300, 14, mob2_img)
-    mob13 = Mob(500, 14, mob2_img)
-    mob14 = Mob(700, 14, mob2_img)
+    mob1 = Mob(200, 64, mob_img)
+    mob2 = Mob(400, 64, mob_img)
+    mob3 = Mob(600, 64, mob_img)
+    mob4 = Mob(800, 64, mob_img)
+    mob5 = Mob(300, 14, mob_img)
+    mob6 = Mob(500, 14, mob_img)
+    mob7 = Mob(700, 14, mob_img)
+    
+    mob8 = Mob(100, 64, mob2_img)
+    mob9 = Mob(300, 64, mob2_img)
+    mob10 = Mob(500, 64, mob2_img)
+    mob11 = Mob(700, 64, mob2_img)
+    mob12 = Mob(900, 64, mob2_img)
+    mob13 = Mob(100, 14, mob2_img)
+    mob14 = Mob(300, 14, mob2_img)
+    mob15 = Mob(500, 14, mob2_img)
+    mob16 = Mob(700, 14, mob2_img)
 
-    mob15 = Mob(200, 64, mob3_img)
-    mob16 = Mob(400, 64, mob3_img)
-    mob17 = Mob(600, 64, mob3_img)
-    mob18 = Mob(800, 64, mob3_img)
-    mob19 = Mob(300, 14, mob3_img)
-    mob20 = Mob(500, 14, mob3_img)
-    mob21 = Mob(700, 14, mob3_img)
-    '''
-
+    mob17 = Mob(200, 64, mob3_img)
+    mob18 = Mob(400, 64, mob3_img)
+    mob19 = Mob(600, 64, mob3_img)
+    mob20 = Mob(800, 64, mob3_img)
+    mob21 = Mob(200, -36, mob3_img)
+    mob22 = Mob(400, -36, mob3_img)
+    mob23 = Mob(600, -36, mob3_img)
+    mob24 = Mob(800, -36, mob3_img)
+    mob25 = Mob(300, 14, mob3_img)
+    mob26 = Mob(500, 14, mob3_img)
+    mob27 = Mob(700, 14, mob3_img)
+    
+    ufo = UFO(-500, -500, ufo_img)
+    
     # Make sprite groups
     player = pygame.sprite.GroupSingle()
     player.add(ship)
     player.score = 0
     player.level = 1
     player.shield = 10
+
+    enemy = pygame.sprite.GroupSingle()
+    enemy.add(ufo)
     
     mobs = pygame.sprite.Group()
     mobs.add(mob1, mob2, mob3, mob4, mob5, mob6, mob7)
-    '''
+    
     if player.level == 2:
-        mobs.add(mob8, mob9, mob10, mob11, mob12, mob13, mob14)
+        mobs.add(mob8, mob9, mob10, mob11, mob12, mob13, mob14, mob15, mob16)
     if player.level == 3:
-        mobs.add(mob15, mob16, mob17, mob18, mob19, mob20, mob21)
-    '''    
+        mobs.add(mob17, mob18, mob19, mob20, mob21, mob22, mob23, mob24, mob25, mob26, mob27)
+       
     lasers = pygame.sprite.Group()
 
     bombs = pygame.sprite.Group()
     
     fleet = Fleet(mobs)
+
+    fleet2 = Fleet2(enemy)
 
     # Set stage
     stage = START
@@ -431,7 +530,17 @@ def show_end():
     restart = FONT_MD.render('Press R to Restart', 1, WHITE)
     screen.blit(restart, [385, 35])
     
+def show_win():
+    pygame.mixer.music.stop()
+    screen.blit(win_img, (0, 0))
+    
+    restart = FONT_MD.render('Press R to Restart', 1, WHITE)
+    screen.blit(restart, [5, 45])
 
+    quit_game = FONT_MD.render('Press X to Quit', 1, WHITE)
+    screen.blit(quit_game, [5, 5])
+
+    
 # Game loop
 game_setup()
 
@@ -494,6 +603,8 @@ while not done:
         mobs.update(lasers, player)
         bombs.update()
         fleet.update()
+        enemy.update(lasers, player)
+        fleet2.update()
 
         if len(player) == 0:
             stage = LOSE
@@ -502,7 +613,7 @@ while not done:
             player.level += 1
             level_setup()
 
-        if len(mobs) == 0 and player.level == 5:
+        if player.level == 4:
             stage = WIN
 
         
@@ -516,6 +627,7 @@ while not done:
         player.draw(screen)
         bombs.draw(screen)
         mobs.draw(screen)
+        enemy.draw(screen)
         show_stats(player)
 
     if stage == LOSE:
@@ -523,8 +635,7 @@ while not done:
         show_stats(player)
 
     if stage == WIN:
-        pygame.mixer.music.stop()
-        screen.blit(win_img, (0, 0))
+        show_win()
 
     
     # Update screen (Actually draw the picture in the window.)
