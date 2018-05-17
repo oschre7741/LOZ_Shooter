@@ -28,8 +28,8 @@ GREEN = (0, 255, 0)
 GREY = (244, 244, 244)
 
 # Fonts
-FONT_SM = pygame.font.Font('fonts/Triforce.ttf', 24)
-FONT_MD = pygame.font.Font('fonts/Triforce.ttf', 32)
+FONT_SM = pygame.font.Font('fonts/LOZ_FONT.ttf', 24)
+FONT_MD = pygame.font.Font('fonts/LOZ_FONT.ttf', 32)
 FONT_LG = pygame.font.Font(None, 64)
 FONT_XL = pygame.font.Font(None, 96)
 
@@ -516,19 +516,23 @@ def show_title_screen():
 
 def show_stats(player):
     score_text = FONT_MD.render('Score: ' + str(player.score), 1, GREY)
-    screen.blit(score_text, [32, 28])
+    screen.blit(score_text, [600, 10])
 
     score_text = FONT_MD.render('Level: ' + str(player.level), 1, GREY)
-    screen.blit(score_text, [32, 60])
+    screen.blit(score_text, [600, 50])
 
     score_text = FONT_MD.render('Health: ' + str(player.shield), 1, GREY)
-    screen.blit(score_text, [32, 92])
+    screen.blit(score_text, [600, 90])
 
 def show_end():
     screen.blit(game_over, (0, 0))
 
     restart = FONT_MD.render('Press R to Restart', 1, WHITE)
-    screen.blit(restart, [385, 35])
+    screen.blit(restart, [220, 455])
+
+    quit_game = FONT_MD.render('Press X to Quit', 1, WHITE)
+    screen.blit(quit_game, [260, 495])
+
     
 def show_win():
     pygame.mixer.music.stop()
