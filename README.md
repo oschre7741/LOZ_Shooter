@@ -1,4 +1,4 @@
-# space-war
+## LOZ Shooter Game
 
 # Start Game:
 press kp enter
