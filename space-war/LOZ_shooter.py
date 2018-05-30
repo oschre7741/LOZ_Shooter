@@ -61,10 +61,10 @@ enemy_die = pygame.mixer.Sound('assets/sounds/enemy_die.wav')
 link_hit = pygame.mixer.Sound('assets/sounds/link_hit.wav')
 link_death = pygame.mixer.Sound('assets/sounds/link_die.wav')
 
-
+# Music
 intro_music = 'assets/sounds/intro_music.ogg'
 background_music = 'assets/sounds/main_music.ogg'
-gameover_music = 'assets/sounds/game_over.wav'
+gameover_music = 'assets/sounds/game_over.ogg'
 win_music = 'assets/sounds/win_music.ogg'
 music = [intro_music, background_music, gameover_music, win_music]
 current_music = 0
@@ -108,7 +108,7 @@ class Ship(pygame.sprite.Sprite):
         laser.rect.centerx = self.rect.centerx
         laser.rect.centery = self.rect.top
         lasers.add(laser)
-        print("Pew!")
+        # print("Pew!")
 
     def update(self, bombs, mobs, ship):
         hit_list = pygame.sprite.spritecollide(self, bombs, True, pygame.sprite.collide_mask)
@@ -210,11 +210,11 @@ class Mob(pygame.sprite.Sprite):
 
         if self.rect.top > 650:
             self.kill()
-
+        
         if len(mobs) == 0 and player.level > 3:
             current_music = 3
             start_music(music[current_music])
-
+        
 class Bomb(pygame.sprite.Sprite):
     
     def __init__(self, image):
@@ -276,6 +276,10 @@ class Fleet:
 
 def game_setup():
     global x, y, image, lasers, bombs, mobs, player, ship, fleet, fleet2, ufo, enemy, stage
+
+    # Set stage
+    stage = START
+
     # Make game objects
     ship = Ship(450, 465, ship_img)
 
@@ -311,11 +315,9 @@ def game_setup():
 
     fleet2 = Fleet2(enemy)
 
-    # Set stage
-    stage = START
-
 def level_setup():
     global x, y, image, ship, lasers, player, mobs, bombs, fleet, fleet2, ufo, enemy
+    
     # Make game objects
     mob1 = Mob(200, 64, mob_img)
     mob2 = Mob(400, 64, mob_img)
@@ -460,11 +462,18 @@ while not done:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_r:
                 game_setup()
+                stage = START
+                current_music = 0
+                start_music(music[current_music])
 
     if stage == WIN:    
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_r:
                 game_setup()
+                stage = START
+                current_music = 0
+                start_music(music[current_music])
+                    
     
     # Game logic (Check for collisions, update points, etc.)
     if stage == PLAYING:
