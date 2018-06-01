@@ -1,7 +1,9 @@
 # LOZ Shooter Game
-Hyrule has been taken over by the evil Ganondorf. You are the chosen hero and must save Hyrule by finding the Triforce. Shoot the Keese to win the Triforce and save Hyrule from Ganondorf's evil reign.
+Hyrule has been taken over by the evil Ganondorf! You are the chosen hero and must save Hyrule by finding the Triforce. Shoot the Keese with your magiuc fairy bow to win the Triforce and save Hyrule from Ganondorf's evil reign.
 
 ## How to Play:
+Startscreen:
+
 ![alt text][startscreen]
 
 [startscreen]: https://raw.githubusercontent.com/oschre7741/LOZ_Shooter/master/space-war/images/startscreen.png "Startscreen Title Text 1"
