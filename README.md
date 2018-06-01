@@ -13,17 +13,17 @@ The Keese are worth 100 points each, and each level more spawn. There are three 
 level 1:
 ![alt text][level 1]
 
-[level 1]: https://raw.githubusercontent.com/oschre7741/LOZ_Shooter/master/space-war/screenshots/level1.PNG "level 1 Title Text 2"
+[level 1]: https://raw.githubusercontent.com/oschre7741/LOZ_Shooter/master/space-war/screenshots/level1.png "level 1 Title Text 2"
 
 level 2:
 ![alt text][level 2]
 
-[level 2]: https://raw.githubusercontent.com/oschre7741/LOZ_Shooter/master/space-war/screenshots/level2.PNG "level 2 Title Text 3"
+[level 2]: https://raw.githubusercontent.com/oschre7741/LOZ_Shooter/master/space-war/screenshots/level2.png "level 2 Title Text 3"
 
 level 3:
 ![alt text][level 3]
 
-[level 3]: https://raw.githubusercontent.com/oschre7741/LOZ_Shooter/master/space-war/screenshots/level3.PNG "level 3 Title Text 4"
+[level 3]: https://raw.githubusercontent.com/oschre7741/LOZ_Shooter/master/space-war/screenshots/level3.png "level 3 Title Text 4"
 
 The Octorok is a special enemy. It is worth 1000 points, but moves a lot faster and only shows up once each level. You don't take damage if hit by the Octorok.
 
