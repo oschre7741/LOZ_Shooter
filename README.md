@@ -30,3 +30,5 @@ Once you beat all 3 levels of the game, you win the Triforce and save Hyrule.
 To quit the game, press the X key.
 
 To restart the game, press the R key.
+
+[v1.0.0](https://github.com/oschre7741/LOZ_Shooter/releases/tag/v1.0.0)
