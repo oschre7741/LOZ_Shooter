@@ -11,16 +11,19 @@ To start the game, press the keypad enter. Once the game starts, use the left an
 The Keese are worth 100 points each, and each level more spawn. There are three types of Keese, but they are all worth 100 points and are killed in one hit. They drop bombs, which take 1 health point if you get hit. If you are hit by any of the Keese, you instantly die and loose the game.
 
 level 1:
+
 ![alt text][level 1]
 
 [level 1]: https://raw.githubusercontent.com/oschre7741/LOZ_Shooter/master/space-war/screenshots/level1.png "level 1 Title Text 2"
 
 level 2:
+
 ![alt text][level 2]
 
 [level 2]: https://raw.githubusercontent.com/oschre7741/LOZ_Shooter/master/space-war/screenshots/level2.png "level 2 Title Text 3"
 
 level 3:
+
 ![alt text][level 3]
 
 [level 3]: https://raw.githubusercontent.com/oschre7741/LOZ_Shooter/master/space-war/screenshots/level3.png "level 3 Title Text 4"
