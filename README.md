@@ -1,20 +1,15 @@
 # LOZ Shooter Game
+Hyrule has been taken over by the evil Ganondorf. You are the chosen hero and must save Hyrule by finding the Triforce. Shoot the Keese to win the Triforce and save Hyrule from Ganondorf's evil reign.
 
-## Start Game:
-press kp enter
+## How to Play:
+To start the game, press the keypad enter. Once the game starts, use the left and right arrow keys to move side to side and press space to shoot the Keese and Octorok. 
 
-## How To Play:
-left and right arrow keys to move
+The Keese are worth 100 points each, and each level more spawn. There are three types of Keese, but they are all worth 100 points and are killed in one hit. They drop bombs, which take 1 health point if you get hit. If you are hit by any of the Keese, you instantly die and loose the game.
 
-space to shoot
+The Octorok is a special enemy. It is worth 1000 points, but moves a lot faster and only shows up once each level. You don't take damage if hit by the Octorok.
 
-X to quit
+Once you beat all 3 levels of the game, you win the Triforce and save Hyrule. 
 
-R to restart
+To quit the game, press the X key.
 
-You have 10 hp, once you run out the game ends
-
-If you are hit by a mob, the game ends
-
-## To Win:
-Beat all 3 levels to win the Triforce
+To restart the game, press the R key.
